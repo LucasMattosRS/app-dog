@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/comum.dart';
 import '../../widgets/item_info.dart';
 import '../../widgets/tela_app.dart';
+import 'atendimento_ia_screen.dart';
 import 'banho_tosa_screen.dart';
 import 'cobrancas_screen.dart';
 import 'fotos_screen.dart';
@@ -21,6 +22,12 @@ class MaisScreen extends StatelessWidget {
       corpo: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          ItemInfo(
+            icone: Icons.smart_toy_outlined,
+            titulo: 'Atendimento',
+            subtitulo: 'Tire dúvidas e faça pedidos com o assistente virtual',
+            aoTocar: () => _abrir(context, const AtendimentoIaScreen()),
+          ),
           ItemInfo(
             icone: Icons.photo_library_outlined,
             titulo: 'Fotos e rotina',

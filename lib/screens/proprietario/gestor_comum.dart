@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../../data/dados_demo.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/comum.dart';
+import '../mensagens/mensagens_screen.dart';
 import 'despesas_screen.dart';
 import 'equipe_permissoes_screen.dart';
-import 'ia_whatsapp_screen.dart';
 import 'servicos_regras_screen.dart';
 
 List<Widget> acoesGestor(BuildContext context) {
@@ -51,6 +51,11 @@ class MenuGestor extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: const IconeMensagens(),
+            title: const Text('Mensagens do atendimento'),
+            onTap: () => abrir(const MensagensScreen(nomeResponsavel: 'Gestor')),
+          ),
+          ListTile(
             leading: const Icon(Icons.bar_chart),
             title: const Text('Despesas e relatórios'),
             onTap: () => abrir(const DespesasScreen()),
@@ -64,11 +69,6 @@ class MenuGestor extends StatelessWidget {
             leading: const Icon(Icons.pets),
             title: const Text('Serviços, preços e regras'),
             onTap: () => abrir(const ServicosRegrasScreen()),
-          ),
-          ListTile(
-            leading: const Icon(Icons.smart_toy_outlined),
-            title: const Text('IA no WhatsApp'),
-            onTap: () => abrir(const IaWhatsappScreen()),
           ),
           const Divider(),
           ListTile(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/comum.dart';
 import '../../widgets/item_info.dart';
 import '../../widgets/tela_app.dart';
+import '../mensagens/mensagens_screen.dart';
 import 'despesas_screen.dart';
 import 'equipe_permissoes_screen.dart';
-import 'ia_whatsapp_screen.dart';
 import 'servicos_regras_screen.dart';
 
 class ProprietarioMaisScreen extends StatelessWidget {
@@ -22,6 +22,15 @@ class ProprietarioMaisScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           ItemInfo(
+            icone: Icons.chat_bubble_outline,
+            titulo: 'Mensagens do atendimento',
+            subtitulo: 'Conversas dos tutores com a IA e respostas da equipe',
+            aoTocar: () => _abrir(
+              context,
+              const MensagensScreen(nomeResponsavel: 'Gestor'),
+            ),
+          ),
+          ItemInfo(
             icone: Icons.bar_chart,
             titulo: 'Despesas e relatórios',
             subtitulo: 'Gastos por categoria e resultado de caixa',
@@ -38,12 +47,6 @@ class ProprietarioMaisScreen extends StatelessWidget {
             titulo: 'Serviços, preços e regras',
             subtitulo: 'Tabela de valores, Táxi Dog e retenção de fotos',
             aoTocar: () => _abrir(context, const ServicosRegrasScreen()),
-          ),
-          ItemInfo(
-            icone: Icons.smart_toy_outlined,
-            titulo: 'IA no WhatsApp',
-            subtitulo: 'Atendimento automático com as regras do dono',
-            aoTocar: () => _abrir(context, const IaWhatsappScreen()),
           ),
           const SizedBox(height: 8),
           ItemInfo(

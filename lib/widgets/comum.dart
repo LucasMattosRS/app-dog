@@ -99,9 +99,13 @@ class Selo extends StatelessWidget {
             Icon(icone, size: 13, color: cor),
             const SizedBox(width: 4),
           ],
-          Text(
-            texto,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: cor),
+          Flexible(
+            child: Text(
+              texto,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: cor),
+            ),
           ),
         ],
       ),

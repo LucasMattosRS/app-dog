@@ -7,7 +7,10 @@ import 'package:app_pet/screens/equipe/publicar_fotos_screen.dart';
 import 'package:app_pet/screens/perfil_screen.dart';
 import 'package:app_pet/screens/proprietario/despesas_screen.dart';
 import 'package:app_pet/screens/proprietario/equipe_permissoes_screen.dart';
-import 'package:app_pet/screens/proprietario/ia_whatsapp_screen.dart';
+import 'package:app_pet/data/conversas.dart';
+import 'package:app_pet/screens/mensagens/conversa_screen.dart';
+import 'package:app_pet/screens/mensagens/mensagens_screen.dart';
+import 'package:app_pet/screens/tutor/atendimento_ia_screen.dart';
 import 'package:app_pet/screens/proprietario/proprietario_shell.dart';
 import 'package:app_pet/screens/proprietario/servicos_regras_screen.dart';
 import 'package:app_pet/screens/tutor/banho_tosa_screen.dart';
@@ -32,7 +35,8 @@ void main() {
     'Despesas': const DespesasScreen(),
     'Equipe e permissões': const EquipePermissoesScreen(),
     'Serviços e regras': const ServicosRegrasScreen(),
-    'IA no WhatsApp': const IaWhatsappScreen(),
+    'Atendimento IA (tutor)': const AtendimentoIaScreen(),
+    'Mensagens (equipe)': const MensagensScreen(nomeResponsavel: 'Ana'),
   };
 
   final shells = <String, Widget>{
@@ -73,5 +77,26 @@ void main() {
     );
     await abrir(tester, const ConcluidosScreen());
     expect(find.text('Bella • Teste de finalização'), findsOneWidget);
+  });
+
+  testWidgets('Tutor fala com a IA, equipe acompanha e responde', (tester) async {
+    await abrir(tester, const AtendimentoIaScreen());
+    await tester.enterText(find.byType(TextField), 'Meu cachorro está espirrando');
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    await tester.pump(const Duration(seconds: 1));
+
+    final conversa = Conversas.instancia.doTutorLogado;
+    expect(conversa.precisaEquipe, isTrue);
+
+    await abrir(tester, ConversaScreen(conversa: conversa, nomeResponsavel: 'Ana'));
+    expect(find.text('Meu cachorro está espirrando'), findsOneWidget);
+    await tester.enterText(find.byType(TextField), 'Vamos observar o Thor hoje.');
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    await tester.pump();
+    expect(conversa.precisaEquipe, isFalse);
+
+    await abrir(tester, const AtendimentoIaScreen());
+    expect(find.text('Vamos observar o Thor hoje.'), findsOneWidget);
+    expect(find.text('Equipe • Ana'), findsOneWidget);
   });
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../data/atividades.dart';
 import '../../widgets/shell_abas.dart';
+import '../mensagens/mensagens_screen.dart';
 import 'agenda_equipe_screen.dart';
 import 'banho_equipe_screen.dart';
 import 'equipe_mais_screen.dart';
@@ -15,6 +17,7 @@ class EquipeShell extends StatelessWidget {
         AgendaEquipeScreen(),
         TaxiEquipeScreen(),
         BanhoEquipeScreen(),
+        MensagensScreen(nomeResponsavel: Atividades.funcionarioLogado),
         EquipeMaisScreen(),
       ],
       destinos: [
@@ -31,6 +34,10 @@ class EquipeShell extends StatelessWidget {
         NavigationDestination(
           icon: Icon(Icons.content_cut),
           label: 'Banho e tosa',
+        ),
+        NavigationDestination(
+          icon: IconeMensagens(),
+          label: 'Mensagens',
         ),
         NavigationDestination(
           icon: Icon(Icons.more_horiz),
